@@ -41,7 +41,7 @@ pipeline {
                 script {
                     GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
                     SHORT_COMMIT = "${GIT_COMMIT_HASH[0..7]}"
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerHubCredentials') {
+                    docker.withRegistry('https://https://hub.docker.com/repository/docker/stefen2020/petclinic-spinnaker-jenkins', 'dockerHubCredentials') {
                         app.push("$SHORT_COMMIT")
                         app.push("latest")
                     }
@@ -51,8 +51,8 @@ pipeline {
         stage('Remove local images') {
             steps {
                 echo '=== Delete the local docker images ==='
-                sh("docker rmi -f ibuchh/petclinic-spinnaker-jenkins:latest || :")
-                sh("docker rmi -f ibuchh/petclinic-spinnaker-jenkins:$SHORT_COMMIT || :")
+                sh("docker rmi -f mbiombani/petclinic-spinnaker-jenkins:latest || :")
+                sh("docker rmi -f mbiombani/petclinic-spinnaker-jenkins:$SHORT_COMMIT || :")
             }
         }
     }
